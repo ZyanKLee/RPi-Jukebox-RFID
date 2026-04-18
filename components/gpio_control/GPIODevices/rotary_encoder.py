@@ -1,16 +1,7 @@
-#!/usr/bin/env python3
-# rotary volume knob
-# these files belong all together:
-# RPi-Jukebox-RFID/scripts/rotary-encoder.py
-# RPi-Jukebox-RFID/scripts/rotary_encoder.py
-# RPi-Jukebox-RFID/misc/sampleconfigs/phoniebox-rotary-encoder.service.stretch-default.sample
-# See wiki for more info: https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki
-
 import RPi.GPIO as GPIO
 from timeit import default_timer as timer
 import ctypes
 import logging
-from signal import pause
 
 logger = logging.getLogger(__name__)
 
@@ -136,14 +127,16 @@ class RotaryEncoder:
             logger.debug('Ignoring encoderState: "{}"'.format(self.encoderState.asByte))
 
 
-if __name__ == "__main__":
-    logging.basicConfig(level='INFO')
-    GPIO.setmode(GPIO.BCM)
-    pin1 = int(input('please enter first pin'))
-    pin2 = int(input('please enter second pin'))
-    func1 = lambda *args: print('Function Incr executed with {}'.format(args))
-    func2 = lambda *args: print('Function Decr executed with {}'.format(args))
-    rotarty_encoder = RotaryEncoder(pin1, pin2, func1, func2)
+# Umcomment for manual tests
+# if __name__ == "__main__":
+#     from signal import pause
+#     logging.basicConfig(level='INFO')
+#     GPIO.setmode(GPIO.BCM)
+#     pin1 = int(input('please enter first pin'))
+#     pin2 = int(input('please enter second pin'))
+#     func1 = lambda *args: print('Function Incr executed with {}'.format(args))
+#     func2 = lambda *args: print('Function Decr executed with {}'.format(args))
+#     rotarty_encoder = RotaryEncoder(pin1, pin2, func1, func2)
 
-    print('running')
-    pause()
+#     print('running')
+#     pause()

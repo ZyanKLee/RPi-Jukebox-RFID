@@ -73,6 +73,8 @@ NOW=`date +%Y-%m-%d.%H:%M:%S`
 # readwifiipoverspeaker
 # bluetoothtoggle
 # switchaudioiface
+# sharedsyncfull
+# sharedsyncchangeonrfidscan
 
 # The absolute path to the folder which contains all the scripts.
 # Unless you are working with symlinks, leave the following line untouched.
@@ -117,6 +119,8 @@ if [ "${DEBUG_playout_controls_sh}" == "TRUE" ]; then echo "VAR VALUE: ${VALUE}"
 # and we can immediately jump to the switch-case statement. Increases execution
 # speed of these commands.
 shortcutCommands="^(setvolume|volumedown|volumeup|mute)$"
+
+autohotspot_service='autohotspot.service'
 
 # Run the code from this block only, if the current command is not in "shortcutCommands"
 if [[ ! "$COMMAND" =~ $shortcutCommands ]]
@@ -285,7 +289,7 @@ case $COMMAND in
 			# schedule shutdown after VALUE minutes
 			echo "${PATHDATA}/playout_controls.sh -c=shutdownsilent" | at -q q now + ${VALUE} minute
 		fi
-		;;			
+		;;
     reboot)
         if [ "${DEBUG_playout_controls_sh}" == "TRUE" ]; then echo "   ${COMMAND}" >> ${PATHDATA}/../logs/debug.log; fi
         ${PATHDATA}/resume_play.sh -c=savepos && mpc clear
@@ -744,7 +748,13 @@ case $COMMAND in
         then
 	       /bin/sleep $VALUE
         fi
-        mpc pause
+        PLAYSTATE=$(echo -e "status\nclose" | nc -w 1 localhost 6600 | grep -o -P '(?<=state: ).*')
+        # Only pause when currently playing
+        # Otherwise mpc might go from "stopped" back to "pause", causing inconsitency as there is nothing to "resume"
+        if [ "$PLAYSTATE" == "play" ]
+        then
+            mpc pause
+        fi
         ;;
     playerplay)
         # play / resume current track
@@ -997,6 +1007,7 @@ case $COMMAND in
     enablewifi)
         if [ "${DEBUG_playout_controls_sh}" == "TRUE" ]; then echo "   ${COMMAND}" >> ${PATHDATA}/../logs/debug.log; fi
         rfkill unblock wifi
+        sudo systemctl start "$autohotspot_service" > /dev/null 2>&1
         ;;
     disablewifi)
         if [ "${DEBUG_playout_controls_sh}" == "TRUE" ]; then echo "   ${COMMAND}" >> ${PATHDATA}/../logs/debug.log; fi
@@ -1010,10 +1021,8 @@ case $COMMAND in
         # Build special for franzformator
         rfkill list wifi | grep -i "Soft blocked: no" > /dev/null 2>&1
         WIFI_SOFTBLOCK_RESULT=$?
-        wpa_cli -i wlan0 status | grep 'ip_address' > /dev/null 2>&1
-        WIFI_IP_RESULT=$?
-        if [ "${DEBUG_playout_controls_sh}" == "TRUE" ]; then echo "   WIFI_IP_RESULT='${WIFI_IP_RESULT}' WIFI_SOFTBLOCK_RESULT='${WIFI_SOFTBLOCK_RESULT}'" >> ${PATHDATA}/../logs/debug.log; fi
-        if [ $WIFI_SOFTBLOCK_RESULT -eq 0 ] && [ $WIFI_IP_RESULT -eq 0 ]
+        if [ "${DEBUG_playout_controls_sh}" == "TRUE" ]; then echo "   WIFI_SOFTBLOCK_RESULT='${WIFI_SOFTBLOCK_RESULT}'" >> ${PATHDATA}/../logs/debug.log; fi
+        if [ $WIFI_SOFTBLOCK_RESULT -eq 0 ]
         then
             if [ "${DEBUG_playout_controls_sh}" == "TRUE" ]; then echo "   Wifi will now be deactivated" >> ${PATHDATA}/../logs/debug.log; fi
             echo "Wifi will now be deactivated"
@@ -1022,6 +1031,7 @@ case $COMMAND in
             if [ "${DEBUG_playout_controls_sh}" == "TRUE" ]; then echo "   Wifi will now be activated" >> ${PATHDATA}/../logs/debug.log; fi
             echo "Wifi will now be activated"
             rfkill unblock wifi
+            sudo systemctl start "$autohotspot_service" > /dev/null 2>&1
         fi
         ;;
     randomcard)
@@ -1129,6 +1139,12 @@ case $COMMAND in
         else
             dbg "Command requires \"amixer\" as volume manager."
         fi
+        ;;
+    sharedsyncfull)
+        $PATHDATA/../components/synchronisation/sync-shared/sync-shared.sh -c=full
+        ;;
+    sharedsyncchangeonrfidscan)
+        $PATHDATA/../components/synchronisation/sync-shared/sync-shared.sh -c=changeOnRfidScan -v="$VALUE"
         ;;
     *)
         echo Unknown COMMAND $COMMAND VALUE $VALUE

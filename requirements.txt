@@ -1,3 +1,4 @@
+# Test trigger
 # Library dependencies for the python code.  You need to install these with
 # `sudo python3 -m pip install --upgrade --force-reinstall -r requirements.txt` before you can run this.
 
@@ -5,10 +6,11 @@
 
 # related libraries.
 evdev
-git+git://github.com/lthiery/SPI-Py.git#egg=spi-py
-youtube_dl
+git+https://github.com/lthiery/SPI-Py.git#egg=spi-py
+yt-dlp
 pyserial
-RPi.GPIO
+# use shim to keep current RPi.GPIO behavior also under Bookworm - see https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/2313
+rpi-lgpio --no-binary=lgpio
 
 # Type checking for python
 # typing

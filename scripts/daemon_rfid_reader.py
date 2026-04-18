@@ -34,7 +34,7 @@ same_id_delay = ssp.read().strip()
 sspc = open('../settings/Second_Swipe_Pause_Controls', 'r')
 sspc_nodelay = sspc.readline().strip()
 previous_id = ""
-previous_time = time.time()
+previous_time = time.monotonic()
 
 # get swipe or place configuration value
 sop = open('../settings/Swipe_or_Place', 'r')
@@ -57,7 +57,7 @@ string = ''.join(extract)
 
 # if controlcards delay is deactivated, let the cards pass, otherwise, they have to wait...
 if sspc_nodelay == "ON":
-    ids = re.findall("(\d+)", string)
+    ids = re.findall("(\d+)", string) # noqa W605
 else:
     ids = ""
 
@@ -69,7 +69,7 @@ def handler(signum, frame):
         # force pause the player script
         logger.info('Trigger Pause Force')
         subprocess.call([dir_path + '/playout_controls.sh -c=playerpauseforce -v=0.1'], shell=True)
-    except OSError as e:
+    except OSError:
         logger.info('Execution of Pause failed.')
 
 
@@ -85,14 +85,7 @@ while True:
         signal.alarm(1)
 
     # reading the card id
-    # NOTE: it's been reported that KKMOON Reader might need the following line altered.
-    # Instead of:
-    # cardid = reader.reader.readCard()
-    # change the line to:
-    # cardid = reader.readCard()
-    # See here for (German ;) details:
-    # https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/551
-    cardid = reader.reader.readCard()
+    cardid = reader.readCard()
 
     # disable the alarm after a successful read
     signal.alarm(0)
@@ -101,7 +94,7 @@ while True:
         # start the player script and pass on the cardid (but only if new card or otherwise
         # "same_id_delay" seconds have passed)
         if cardid is not None:
-            if cardid != previous_id or (time.time() - previous_time) >= float(same_id_delay) or cardid in str(ids):
+            if cardid != previous_id or (time.monotonic() - previous_time) >= float(same_id_delay) or cardid in str(ids):
                 logger.info('Trigger Play Cardid={cardid}'.format(cardid=cardid))
                 subprocess.call([dir_path + '/rfid_trigger_play.sh --cardid=' + cardid], shell=True)
                 previous_id = cardid
@@ -112,7 +105,7 @@ while True:
                     same_id_delay=same_id_delay
                 ))
 
-            previous_time = time.time()
+            previous_time = time.monotonic()
 
     except OSError as e:
         logger.error('Execution failed: {e}'.format(e=e))

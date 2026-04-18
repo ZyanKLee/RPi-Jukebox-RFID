@@ -3,35 +3,38 @@
 HOME_DIR="/home/pi"
 JUKEBOX_HOME_DIR="${HOME_DIR}/RPi-Jukebox-RFID"
 
+source "${JUKEBOX_HOME_DIR}"/scripts/helperscripts/inc.systemHelper.sh
+
 question() {
     local question=$1
-    read -p "${question} (y/n)? " choice
+    read -p "${question} (Y/n)? " choice
     case "$choice" in
-      y|Y ) ;;
-      n|N ) exit 0;;
-      * ) echo "Error: invalid" ; question ${question};;
+      [nN][oO]|[nN]) exit 0;;
+      * ) ;;
     esac
 }
 
 printf "Please make sure that the Pirate Audio HAT is connected...\n"
 question "Continue"
 
-printf "Stopping and disabling GPIO button service...\n"
+printf "Stopping and disabling GPIO control service...\n"
 #TODO this might not be necessary
-sudo systemctl stop phoniebox-gpio-buttons.service
-sudo systemctl disable phoniebox-gpio-buttons.service
+sudo systemctl stop phoniebox-gpio-control.service
+sudo systemctl disable phoniebox-gpio-control.service
 
-printf "Adding settings to /boot/config.txt...\n"
-if [[ ! -f /boot/config.txt.bak ]]; then
-    sudo cp /boot/config.txt /boot/config.txt.bak
+boot_config_path=$(get_boot_config_path)
+boot_config_path_backup="${boot_config_path}.bak"
+printf "Adding settings to ${boot_config_path}...\n"
+if [[ ! -f "${boot_config_path_backup}" ]]; then
+    sudo cp "${boot_config_path}" "${boot_config_path_backup}"
 fi
 
 # Only add the two lines, if they do not exist already
-if ! sudo grep -qe "gpio=25=op,dh" /boot/config.txt; then
-    echo "gpio=25=op,dh" | sudo tee -a /boot/config.txt > /dev/null
+if ! sudo grep -qe "gpio=25=op,dh" "${boot_config_path}"; then
+    echo "gpio=25=op,dh" | sudo tee -a "${boot_config_path}" > /dev/null
 fi
-if ! sudo grep -qe "dtoverlay=hifiberry-dac" /boot/config.txt; then
-    echo "dtoverlay=hifiberry-dac" | sudo tee -a /boot/config.txt > /dev/null
+if ! sudo grep -qe "dtoverlay=hifiberry-dac" "${boot_config_path}"; then
+    echo "dtoverlay=hifiberry-dac" | sudo tee -a "${boot_config_path}" > /dev/null
 fi
 
 printf "Adding settings to /etc/asound.conf...\n"
@@ -106,6 +109,7 @@ bcm5 = play_pause,active_low,150
 bcm6 = volume_down,active_low,150
 bcm16 = next,active_low,150
 bcm20 = volume_up,active_low,150
+bcm24 = volume_up,active_low,150
 
 [pidi]
 enabled = true

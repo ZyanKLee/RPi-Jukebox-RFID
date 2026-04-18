@@ -1,15 +1,15 @@
 import time
-from signal import pause
 import logging
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 
 logger = logging.getLogger(__name__)
 
-map_edge_parse = {'falling':GPIO.FALLING, 'rising':GPIO.RISING, 'both':GPIO.BOTH}
-map_pull_parse = {'pull_up':GPIO.PUD_UP, 'pull_down':GPIO.PUD_DOWN, 'pull_off':GPIO.PUD_OFF}
+map_edge_parse = {'falling': GPIO.FALLING, 'rising': GPIO.RISING, 'both': GPIO.BOTH}
+map_pull_parse = {'pull_up': GPIO.PUD_UP, 'pull_down': GPIO.PUD_DOWN, 'pull_off': GPIO.PUD_OFF}
 map_edge_print = {GPIO.FALLING: 'falling', GPIO.RISING: 'rising', GPIO.BOTH: 'both'}
-map_pull_print = {GPIO.PUD_UP:'pull_up', GPIO.PUD_DOWN: 'pull_down', GPIO.PUD_OFF: 'pull_off'}
+map_pull_print = {GPIO.PUD_UP: 'pull_up', GPIO.PUD_DOWN: 'pull_down', GPIO.PUD_OFF: 'pull_off'}
+
 
 def parse_edge_key(edge):
     if edge in [GPIO.FALLING, GPIO.RISING, GPIO.BOTH]:
@@ -21,6 +21,7 @@ def parse_edge_key(edge):
         raise KeyError('Unknown Edge type {edge}'.format(edge=edge))
     return result
 
+
 def parse_pull_up_down(pull_up_down):
     if pull_up_down in [GPIO.PUD_UP, GPIO.PUD_DOWN, GPIO.PUD_OFF]:
         return pull_up_down
@@ -31,6 +32,7 @@ def parse_pull_up_down(pull_up_down):
         raise KeyError('Unknown Pull Up/Down type {pull_up_down}'.format(pull_up_down=pull_up_down))
     return result
 
+
 def print_edge_key(edge):
     try:
         result = map_edge_print[edge]
@@ -38,12 +40,14 @@ def print_edge_key(edge):
         result = edge
     return result
 
+
 def print_pull_up_down(pull_up_down):
     try:
         result = map_pull_print[pull_up_down]
     except KeyError:
         result = pull_up_down
     return result
+
 
 # This function takes a holding time (fractional seconds), a channel, a GPIO state and an action reference (function).
 # It checks if the GPIO is in the state since the function was called. If the state
@@ -55,7 +59,8 @@ def checkGpioStaysInState(holdingTime, gpioChannel, gpioHoldingState):
     while True:
         time.sleep(0.1)
         currentState = GPIO.input(gpioChannel)
-        if holdingTime < (time.perf_counter() - startTime):
+        endTime = time.perf_counter() - startTime
+        if holdingTime < endTime:
             break
         # Return if state does not match holding state
         if (gpioHoldingState != currentState):
@@ -69,15 +74,17 @@ def checkGpioStaysInState(holdingTime, gpioChannel, gpioHoldingState):
 
 class SimpleButton:
     def __init__(self, pin, action=lambda *args: None, action2=lambda *args: None, name=None,
-                 bouncetime=500, antibouncehack=False, edge='falling', hold_time=.3, hold_mode=None, pull_up_down='pull_up'):
+                 bouncetime=500, antibouncehack=False, edge='falling',
+                 hold_time=.3, hold_mode=None, pull_up_down='pull_up'):
+        self.pin = pin
+        self.name = name
         self.edge = parse_edge_key(edge)
         self.hold_time = hold_time
         self.hold_mode = hold_mode
+        # TODO is pull_up always true a bug?
         self.pull_up = True
         self.pull_up_down = parse_pull_up_down(pull_up_down)
 
-        self.pin = pin
-        self.name = name
         self.bouncetime = bouncetime
         self.antibouncehack = antibouncehack
         GPIO.setup(self.pin, GPIO.IN, pull_up_down=self.pull_up_down)
@@ -93,17 +100,13 @@ class SimpleButton:
             args = args[1:]
             logger.debug('args after: {}'.format(args))
 
-        if self.antibouncehack: 
+        if self.antibouncehack:
             time.sleep(0.1)
             inval = GPIO.input(self.pin)
             if inval != GPIO.LOW:
                 return None
 
-        if self.hold_mode in ('Repeat', 'Postpone', 'SecondFunc', 'SecondFuncRepeat'):
-            return self.longPressHandler(*args)
-        else:
-            logger.info('{}: execute callback'.format(self.name))
-            return self.when_pressed(*args)
+        return self._handleCallbackFunction(*args)
 
     @property
     def when_pressed(self):
@@ -117,66 +120,82 @@ class SimpleButton:
 
     @when_pressed.setter
     def when_pressed(self, func):
-        logger.info('{}: set when_pressed')
+        logger.info('{}: set when_pressed'.format(self.name))
         self._action = func
 
         GPIO.remove_event_detect(self.pin)
         logger.info('add new action')
-        GPIO.add_event_detect(self.pin, edge=self.edge, callback=self.callbackFunctionHandler, bouncetime=self.bouncetime)
+        GPIO.add_event_detect(self.pin, edge=self.edge, callback=self.callbackFunctionHandler,
+                              bouncetime=self.bouncetime)
 
+    @DeprecationWarning
     def set_callbackFunction(self, callbackFunction):
         self.when_pressed = callbackFunction
 
-    def longPressHandler(self, *args):
-        logger.info('{}: longPressHandler, mode: {}'.format(self.name, self.hold_mode))
-        # instant action (except Postpone mode)
-        if self.hold_mode != "Postpone":
-            self.when_pressed(*args)
-        
-        # action(s) after hold_time
+    def _handleCallbackFunction(self, *args):
+        logger.info('{}: handleCallbackFunction, mode: {}'.format(self.name, self.hold_mode))
+
         if self.hold_mode == "Repeat":
-            # Repeated call of main action (multiple times if button is held long enough)
+            # Instantly call primary action
+            self.when_pressed(*args)
+            # Repeated call of primary action if button is held long enough
             while checkGpioStaysInState(self.hold_time, self.pin, GPIO.LOW):
                 self.when_pressed(*args)
-        
+
         elif self.hold_mode == "Postpone":
-            # Postponed call of main action (once)
+            # Postponed call of primary action (once)
             if checkGpioStaysInState(self.hold_time, self.pin, GPIO.LOW):
                 self.when_pressed(*args)
-            while checkGpioStaysInState(self.hold_time, self.pin, GPIO.LOW):
-                pass
-        
+                while checkGpioStaysInState(self.hold_time, self.pin, GPIO.LOW):
+                    pass
+
         elif self.hold_mode == "SecondFunc":
             # Call of secondary action (once)
+            # execute primary action if not held past hold_time
             if checkGpioStaysInState(self.hold_time, self.pin, GPIO.LOW):
                 self.when_held(*args)
-            while checkGpioStaysInState(self.hold_time, self.pin, GPIO.LOW):
-                pass
-        
+                while checkGpioStaysInState(self.hold_time, self.pin, GPIO.LOW):
+                    pass
+            else:
+                self.when_pressed(*args)
+
         elif self.hold_mode == "SecondFuncRepeat":
             # Repeated call of secondary action (multiple times if button is held long enough)
-            while checkGpioStaysInState(self.hold_time, self.pin, GPIO.LOW):
+            # execute primary action if not held past hold_time
+            if checkGpioStaysInState(self.hold_time, self.pin, GPIO.LOW):
                 self.when_held(*args)
-        
+                while checkGpioStaysInState(self.hold_time, self.pin, GPIO.LOW):
+                    self.when_held(*args)
+            else:
+                self.when_pressed(*args)
+
+        else:
+            self.when_pressed(*args)
+
     def __del__(self):
         logger.debug('remove event detection')
         GPIO.remove_event_detect(self.pin)
 
     @property
     def is_pressed(self):
+        # TODO should this be 'if pull_up_down == GPIO.PUD_UP'? pull_up is always true!
         if self.pull_up:
             return not GPIO.input(self.pin)
         return GPIO.input(self.pin)
 
     def __repr__(self):
-        return '<SimpleButton-{}(pin={},edge={},hold_mode={},hold_time={},bouncetime={},antibouncehack={},pull_up_down={})>'.format(
-            self.name, self.pin, print_edge_key(self.edge), self.hold_mode, self.hold_time, self.bouncetime,self.antibouncehack,print_pull_up_down(self.pull_up_down)
-        )
+        return ('<SimpleButton-{}(pin={},edge={},hold_mode={},hold_time={},'
+                'bouncetime={},antibouncehack={},pull_up_down={})>').format(
+            self.name, self.pin, print_edge_key(self.edge), self.hold_mode, self.hold_time,
+            self.bouncetime, self.antibouncehack, print_pull_up_down(self.pull_up_down))
 
+# Uncomment for manual tests
+# if __name__ == "__main__":
+#     from signal import pause
+#     print('please enter pin no to test')
+#     pin = int(input())
+#     func = lambda *args: print('FunctionCall with {}'.format(args))
+#     btn = SimpleButton(pin=pin, action=func, hold_mode='Repeat')
 
-if __name__ == "__main__":
-    print('please enter pin no to test')
-    pin = int(input())
-    func = lambda *args: print('FunctionCall with {}'.format(args))
-    btn = SimpleButton(pin=pin, action=func, hold_mode='Repeat')
-    pause()
+#     print('running')
+#     pause()

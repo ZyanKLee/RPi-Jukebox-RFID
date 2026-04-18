@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 
-import sys
 import os
 import argparse
 
@@ -52,7 +51,7 @@ def readFolders(audioDir, relpath=None, isFirst=True):
         elif os.path.isdir(absf):
             childResult = readFolders(audioDir=absf, relpath=os.path.join(relpath, f), isFirst=False)
             for k, v in childResult.items():
-                assert(k not in result)
+                assert (k not in result)
                 result[k] = v
     if hasAudioFiles:
         result[relpath] = os.path.exists(os.path.join(audioDir, "folder.conf"))
@@ -75,6 +74,7 @@ def fixBrokenShortcuts(shortcutsDir, shortcuts, audioFolders):
         for d in dirs:
             if d not in audioFolders and d != cardid:
                 _deleteBrokenSymlink(shortcutsDir=shortcutsDir, cardid=cardid, d=d)
+
 
 def _writeFolderConf(audioDir, d, content):
     with open(os.path.join(audioDir, d, "folder.conf"), "w") as f:
@@ -221,4 +221,3 @@ if __name__ == "__main__":
     if args.fixFoldersWithoutFolderConf:
         audioFolders2 = readFolders(audioDir=audioDir)
         fixFoldersWithoutFolderConf(audioDir=audioDir, audioFolders=audioFolders2)
-

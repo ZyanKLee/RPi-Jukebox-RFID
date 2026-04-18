@@ -2,13 +2,14 @@
 
 import sys
 
-sys.path.append(".") # This command should be before imports of components
+sys.path.append(".")  # This command should be before imports of components
 
 import logging
 from evdev import categorize, ecodes, KeyEvent
 from io_buttons_usb_encoder import button_map, current_device
 from components.gpio_control.function_calls import phoniebox_function_calls
 
+sys.path.append(".")
 
 logger = logging.getLogger(__name__)
 
@@ -24,12 +25,14 @@ try:
                     button_string = '-'.join(sorted(button_string))
                 try:
                     function_name = button_map[button_string]
+                    function_args = button_map[button_string + "_args"]
                     try:
-                        getattr(function_calls, function_name)()
-                    except:
+                        getattr(function_calls, function_name)(function_args)
+                    except Exception:
                         logger.warning(
-                            "Function " + function_name + " not found in function_calls.py (mapped from button: " + button_string + ")")
+                            "Function " + function_name
+                            + " not found in function_calls.py (mapped from button: " + button_string + ")")
                 except KeyError:
                     logger.warning("Button " + button_string + " not mapped to any function.")
-except:
+except Exception:
     logger.error("An error with Buttons USB Encoder occurred.")

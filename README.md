@@ -1,231 +1,137 @@
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/MiczFlor/RPi-Jukebox-RFID/develop)
-
-![Python Tests](https://github.com/MiczFlor/RPi-Jukebox-RFID/workflows/Python%20package/badge.svg) ![Install Script Tests](https://github.com/MiczFlor/RPi-Jukebox-RFID/workflows/Docker%20Test%20Installation/badge.svg) 
-
-[![Gitter chat](https://badges.gitter.im/phoniebox/gitter.png)](https://gitter.im/phoniebox)
-
 # Phoniebox: the RPi-Jukebox-RFID
 
-A contactless jukebox for the Raspberry Pi, playing audio files, playlists, podcasts, web streams and spotify triggered by RFID cards. All plug and play via USB, no soldering iron needed. Update: if you must, it now also features a howto for adding GPIO buttons controls.
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/MiczFlor/RPi-Jukebox-RFID/develop)
 
-## The Phoniebox Calendar 2022 is here!!!
+[![Python Checks and Tests](https://github.com/MiczFlor/RPi-Jukebox-RFID/actions/workflows/pythonpackage.yml/badge.svg)](https://github.com/MiczFlor/RPi-Jukebox-RFID/actions/workflows/pythonpackage.yml)
+[![Test Install Scripts Debian](https://github.com/MiczFlor/RPi-Jukebox-RFID/actions/workflows/test_docker_debian.yml/badge.svg)](https://github.com/MiczFlor/RPi-Jukebox-RFID/actions/workflows/test_docker_debian.yml)
+[![CodeQL](https://github.com/MiczFlor/RPi-Jukebox-RFID/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/MiczFlor/RPi-Jukebox-RFID/actions/workflows/codeql-analysis.yml)
+[![PHP Tests](https://github.com/MiczFlor/RPi-Jukebox-RFID/actions/workflows/php.yml/badge.svg)](https://github.com/MiczFlor/RPi-Jukebox-RFID/actions/workflows/php.yml)
 
-Another bunch of wonderful designs! 2022 is the fourth Phoniebox calendar. If you are interested, you can see the [2019, 2020 and 2021 calendars in the docs folder](https://github.com/MiczFlor/RPi-Jukebox-RFID/tree/develop/docs). Download [the printable PDF of 2022 here](https://mi.cz/static/2022-Phoniebox-Calendar.pdf). 
+[![Coverage Status](https://coveralls.io/repos/github/MiczFlor/RPi-Jukebox-RFID/badge.svg?branch=develop)](https://coveralls.io/github/MiczFlor/RPi-Jukebox-RFID?branch=develop)
 
-![The 2022 Phoniebox Calendar](docs/2022-Phoniebox-Calendar.jpg "The 2022 Phoniebox Calendar")
+[![Matrix chat](https://matrix.to/img/matrix-badge.svg)](https://matrix.to/#/#phoniebox_community:matrix.org)
 
----
+## Introduction
 
-## Install latest Phoniebox version
+Phoniebox is a contactless jukebox for the Raspberry Pi, playing audio files, playlists, podcasts, web streams and spotify triggered by RFID cards. All plug and play via USB, no soldering iron needed. It also features GPIO buttons control support.
 
-If you are looking for **the latest stable version**, use the [install script for Raspberry Pi OS Stretch](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/INSTALL-stretch).
-If you dare to go where only few have gone before, **become an alpha-tester, bug reporter, contributor** for the exciting, totally re-written, up and coming, yet feature incomplete and unstable version 3 of the Phoniebox code base:
+## Everyone builds an original
 
-## 🔥 Version 3 is coming ...
+This is one of the most inspiring and gratifying experiences: Phoniebox is about Open Source AND Open Design.
 
-#### Newest release: V3.2.0 Beta -> 7. Feb 2022
+See innovation, upcycling and creativity in the [Phoniebox Gallery](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/GALLERY)
 
-* New GPIO backend based on GPIOZero including more sophisticated controls for inputs and outputs
-* Bluetooth Headset support with device buttons
-* Equalizer + Mono down mixer
-* Localization support for Webapp, current languages supported are English and German (help us translate!)
-* Timer support in Webapp and via RFID cards
-* Additional system information in Webapp like Battery status, CPU temperature or IP address
-* Preperation for Text-to-Speech + Read My IP as a first example
-* Bugfixes for Install Script
+![Caption](https://raw.githubusercontent.com/wiki/MiczFlor/RPi-Jukebox-RFID/img/gallery/Steph-20171215_h90-01.jpg)
+![Caption](https://raw.githubusercontent.com/wiki/MiczFlor/RPi-Jukebox-RFID/img/gallery/Elsa-20171210_h90-01.jpg)
+![Caption](https://raw.githubusercontent.com/wiki/MiczFlor/RPi-Jukebox-RFID/img/gallery/Geliras-20171228-Jukebox-01-h90.jpg)
+![Caption](https://raw.githubusercontent.com/wiki/MiczFlor/RPi-Jukebox-RFID/img/gallery/UlliH-20171210_h90-01.jpg)
+![Caption](https://raw.githubusercontent.com/wiki/MiczFlor/RPi-Jukebox-RFID/img/gallery/KingKahn-20180101-Jukebox-01-h90.jpg)
+![Caption](https://raw.githubusercontent.com/wiki/MiczFlor/RPi-Jukebox-RFID/img/gallery/hailogugo-20171222-h90-01.jpg)
 
-Over the last few months, a few Phoniebox fans started to think about a potential future of the Jukebox code. Version 2 is mature
-and works well but doesn't scale enough for future development. It's the mix of Shell, Python and PHP. The goal was to tidy up the codebase, focus on a single programming language for the core (Python), establish a solid plugin system and build a responsive web client. [Read on here if you want to learn about more reasons](https://rpi-jukebox-rfid.readthedocs.io/en/latest/).
+## Install Phoniebox
 
-### 👋 Looking for adopters, testers and contributors
+### 🔥 Version 3 is coming
+
+The goal for Version 3 was to tidy up the codebase, focus on a single programming language for the core (Python), establish a solid plugin system and build a responsive web client. [Read on here if you want to learn about more reasons](https://github.com/MiczFlor/RPi-Jukebox-RFID/blob/future3/main/documentation/README.md).
+
+#### 👋 Looking for adopters, testers and contributors
 
 If you want to test or help develop this new version called `future3`, let us know what you think about the new architecture, the new web application and help us find bugs (or fix them proactively).
 
-While Version 3 is still under development, it is becoming a lot more stable! Although only some of the features from version 2.x have been ported to version 3 so far.
+While Version 3 is still under development, it is becoming a lot more stable! Although not all of the features from version 2.x have been ported to version 3 so far.
 
 If you seek the adventure, your support will be more then welcome. Before contributing, check out the following references.
 
-* 🚀 **[Install Jukebox Version 3 Beta](https://rpi-jukebox-rfid.readthedocs.io/en/latest/install.html)**
-* 🐛 [Report a bug](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/new?assignees=&labels=future3%2C+bug%2C+needs+triage&template=future3.md&title=ISSUE+SUMMARY+on+future3)
-* ☑️ [Feature Status](https://rpi-jukebox-rfid.readthedocs.io/en/latest/featurelist.html)
-* 📖 [Documentation](https://rpi-jukebox-rfid.readthedocs.io/en/latest/)
-* 👩‍💻 [Development](https://rpi-jukebox-rfid.readthedocs.io/en/latest/development_environment.html)
+* ⭐ **[Releases](https://github.com/MiczFlor/RPi-Jukebox-RFID/releases?q=v3&expanded=true)**
+* 🎵 **[Install Jukebox Version 3](https://github.com/MiczFlor/RPi-Jukebox-RFID/blob/future3/main/documentation/builders/installation.md)**
+* 🐛 [Report a bug](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/new?assignees=&labels=bug%2Cfuture3%2Cneeds+triage&projects=&template=bug_v3.yaml&title=%F0%9F%90%9B+%7C+)
+* 🚀 [Propose a feature](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/new?assignees=&labels=enhancement%2Cfuture3&projects=&template=feature_v3.yaml&title=%F0%9F%9A%80+%7C+)
+* ☑️ [Feature Status](https://github.com/MiczFlor/RPi-Jukebox-RFID/blob/future3/main/documentation/developers/status.md)
+* 📖 [Documentation](https://github.com/MiczFlor/RPi-Jukebox-RFID/blob/future3/main/documentation/README.md)
+* 👩‍💻 [Development](https://github.com/MiczFlor/RPi-Jukebox-RFID/blob/future3/main/documentation/developers/README.md)
 * 🦄 Code: [Release Branch](https://github.com/MiczFlor/RPi-Jukebox-RFID/tree/future3/main), [Development Branch](https://github.com/MiczFlor/RPi-Jukebox-RFID/tree/future3/develop)
 
 ---
 
-## Important updates / news
+### 🎶 Version 2
 
-* **Discussions forums** we use Github's Discussions feature for a more forum style. Please ask general questions in [Discussions](https://github.com/MiczFlor/RPi-Jukebox-RFID/discussions), bugs and enhancements should still be in [Issues](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues).
+> [!NOTE]
+> Version 3 is becoming mature and will soon be the new default of Phoniebox. Therefore Version 2 is slowly going into a maintenance mode and no new features will be added to this version.
 
-* **Phoniebox [future3 Beta](https://rpi-jukebox-rfid.readthedocs.io/en/latest/) released (2022-02)**
-* **Gitter Community** we got ourselves a gitter community; chat us up at https://gitter.im/phoniebox
+Check out the following references.
 
-* **Phoniebox [2.3](https://github.com/MiczFlor/RPi-Jukebox-RFID/milestone/6?closed=1) released (2021-08-12)**
+* ⭐ **[Releases](https://github.com/MiczFlor/RPi-Jukebox-RFID/releases?q=v2&expanded=true)**
+* 🎵 **[Install Jukebox Version 2](#quick-install-version-2)**
+* 🐛 [Report a bug](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/new?assignees=&labels=bug%2Clegacy_v2%2Cneeds+triage&projects=&template=bug_v2.yaml&title=%F0%9F%90%9B+%7C+)
+* ☑️ [Features](#features-version-2)
+* 📖 [Documentation](#documentation)
+* 🦄 Code: [Release Branch](https://github.com/MiczFlor/RPi-Jukebox-RFID/tree/master), [Development Branch](https://github.com/MiczFlor/RPi-Jukebox-RFID/tree/develop)
 
-The [2.3](https://github.com/MiczFlor/RPi-Jukebox-RFID/milestone/6?closed=1) release was pushed through the doors with many contributors: [List of all contributors](https://github.com/MiczFlor/RPi-Jukebox-RFID/graphs/contributors)
+#### Features Version 2
 
-## What's new in version 2.3?
-
-* Improved [installation guide](docs/INSTALL_COMPLETE_GUIDE.md)
-* Holding buttons feature fixed #1406
-* Bluetooth buttons and headphones toggle #1262
-* fixed stop on removal for RC522 #1122
-* USB Encoder buttons support for anyone who dors not want to solder...
-* Improved robustness and better documentation for [GPIO control](components/gpio_control/README.md)
-* Auto convert wrong Spotify URLs to a format Mopidy understands
-* Support for PC/SC-readers
-* Removed support for Raspian Stretch
-* Lots of fixed bugs and minor improvements...
-
-**What's still hot?**
-* :fire: **Fixed location of gpio_settings.ini** for [GPIO control](components/gpio_control/README.md)
-* Added support for files with embedded chapters metada (like m4a) enhancement
-* Added customizable poweroff command bash enhancement
-* Finally fixed resume function...
-* Lots of fixed bugs and minor improvements...
-    * Status LED, Rotary Button, Volume Up/Down, custom music directory for +Spotify, Startup sound volume
-* The constantly improved **one-line install script** handles both **Classic** and **+Spotify** when [setting up your Phoniebox](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/INSTALL-stretch#one-line-install-command)
-    * integrated improved [GPIO control](components/gpio_control/README.md)
-    * integrated selection of RFID readers and uses [multiple readers](https://github.com/MiczFlor/RPi-Jukebox-RFID/pull/1012#issue-434052529) simultaneously
-    * features *non-interactive* installs based on a config file
+* The **one-line install script** handles both **Classic** and **+Spotify** when [setting up your Phoniebox](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/INSTALL#one-line-install-command)
+  * integrated selection of RFID readers
+  * features *non-interactive* installs based on a config file
+* [**RFID** control](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#cardcontrol) for playout and controlling your Phoniebox (e.g. set [maximum volume with RFID](https://github.com/MiczFlor/RPi-Jukebox-RFID/pull/633) cards).
+* Support for various RFID readers, e.g.
+  * USB
+  * [RC522](components/rfid-reader/RC522/README.md)
+  * [PN532](components/rfid-reader/PN532/README.md)
+  * PC/SC
+  * also [multiple readers](https://github.com/MiczFlor/RPi-Jukebox-RFID/pull/1012#issue-434052529) simultaneously
+* [**GPIO** control](components/gpio_control/README.md) for [buttons](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/Using-GPIO-hardware-buttons) and much more to control your Phoniebox via GPIO.
+* Control via smooth [**Web App**](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#webapp) running on ajax from your phone, tablet or PC. You can play, upload, move files, assign new RFID cards, control playout, settings, etc.
+* Support for files with embedded chapters metadata (like m4a)
+* Customizable poweroff command
 * **[WiFi management](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#wifi-settings)**
-    * RFID cards to **toggle Wifi** (or switch it on/off)
-    * Read out the Wifi IP address (if you are connecting to a new network and don't know where to point your browser)
-    * **Hotspot** Phoniebox: [ad-hoc hotspot](https://github.com/MiczFlor/RPi-Jukebox-RFID/pull/967) if no known network found (IP: 10.0.0.5 SSID: phoniebox Password: PlayItLoud)
-* **Touchscreen** LCD display Player (file: `index-lcd.php`in web app)
-* Integrate your [Phoniebox in your Smart Home](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/Smart-Home-remote-control-with-MQTT).
-* Smoother [Web App running on ajax](https://github.com/MiczFlor/RPi-Jukebox-RFID/pull/623).
-* New [search form for local files](https://github.com/MiczFlor/RPi-Jukebox-RFID/pull/710)
-* Control the debug logs in the web app (individual scripts switched on/off, empty log file).
-* Set [maximum volume with RFID](https://github.com/MiczFlor/RPi-Jukebox-RFID/pull/633) cards.
-* Control via [**wifi web app**](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#webapp) from your phone, tablet or PC. You can play, upload, move files, assign new RFID cards, control playout, settings, etc.
-* [**RFID** control](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#phoniebox-controls-using-rfid-cards) for playout and controlling your Phoniebox.
-* [Playout **Resume**](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#manage-playout-behaviour) switch for audio books, allowing you to jump straight back to where you were (unless you fell asleep...).
-* Playout **Shuffle** switch to mix up your playlists.
-* Download from **YouTube** directly to your Phoniebox.
-* Support for **[Spotify](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/Spotify-FAQ)** and **[Google Play Music](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/Enable-Google-Play-Music-GMusic)** integration.
-* **Podcasts!** More for myself than anybody else, I guess, I added the [podcast feature for Phoniebox](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#podcasts) (2018-05-09)
-* [Buttons](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/Using-GPIO-hardware-buttons) and [knobs / dials](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/Audio-RotaryKnobVolume) to control your **Phoniebox via GPIO**.
-    
-### Quick install
-   
-[One line install script](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/INSTALL-stretch#one-line-install-command) for Raspbian `buster` available.
+  * RFID cards to toggle WiFi (or switch it on/off)
+  * Read out the WiFi IP address (if you are connecting to a new network and don't know where to point your browser)
+  * **Hotspot** Phoniebox: [ad-hoc hotspot](https://github.com/MiczFlor/RPi-Jukebox-RFID/pull/967) if no known network found (IP: 10.0.0.5 SSID: phoniebox Password: PlayItLoud)
+* **Touchscreen** LCD display Player (file: `index-lcd.php` in web app)
+* Integrate your [Phoniebox in your Smart Home with MQTT](components/smart-home-automation/MQTT-protocol/README.md).
+* Player control
+  * [Playout **Resume**](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#manage-playout-behaviour) switch for audio books, allowing you to jump straight back to where you were (unless you fell asleep...).
+  * Playout **Shuffle** switch to mix up your playlists.
+* Audio sources
+  * Local audio files
+  * Download from **YouTube** directly to your Phoniebox.
+  * Support for **[Spotify](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/Spotify-FAQ)** integration.
+  * [**Podcast feature** for Phoniebox](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#podcasts)
 
-* **MUST READ for users of [Phoniebox +Spotify Edition](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/Spotify-FAQ)**
-* This install script combines the two versions *Classic* and *+ Spotify*. 
-* *Phoniebox Classic* supports local audio, web radio, podcasts, YouTube (download and convert), GPIO and/or RFID
+#### Quick install Version 2
+
+* Check [Installation instructions](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/INSTALL) with the [One line install script](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/INSTALL#one-line-install-command) for Raspberry Pi OS.
+* Two editions:
+  * *Phoniebox Classic* supports local audio, web radio, podcasts, YouTube (download and convert), GPIO and/or RFID
+  * **MUST READ** for users of *[Phoniebox +Spotify Edition](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/Spotify-FAQ)*
+* Once everything has been installed and configured, [read the manual](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL) to change settings, register RFID cards, add audio.
+* Adding push buttons to control volume, skipping tracks, pause, play: read the [GPIO Control Readme](components/gpio_control/README.md).
+* There's also a [Complete Install Guide](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/INSTALL-COMPLETE-GUIDE)
+
+## Contact and Support
+
+* Please ask **general questions** in [Discussions](https://github.com/MiczFlor/RPi-Jukebox-RFID/discussions)
+* **Bugs and enhancements** should still be in [Issues](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues).
+* Want to discuss with others? Check out our [Matrix community](https://matrix.to/#/#phoniebox_community:matrix.org)
+
+## Documentation
 
 Documentation can be found in the [GitHub wiki for Phoniebox](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki). Please try to add content in the wiki regarding special hardware, software tweaks and the like.
 
-## The 2020 Phoniebox Calendar is out!
-
-Celebrating all the great designs of 2019, I put together a calendar for 2020, see picture above. If you want to be featured on next years calendar, please make sure to add your Phoniebox pics to the [design thread here on github](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/639).
-
-The PDF is about 6MB and will print well on A2 paper size, but it should also look good on larger poster sizes. Thanks to all the contributors, designers and makers. Have a good start into 2020 and keep up the good work!
-![The 2020 Phoniebox Calendar](docs/2020-Phoniebox-Calendar.jpg "The 2020 Phoniebox Calendar")
-
-* [Download the 2020 Phoniebox Calendar PDF here](https://drive.google.com/file/d/1krb8G8Td1Vrf3sYWl44nZyuoJ0DIC5vX/view?usp=sharing)
-* In case you missed it, [download the 2019 Phoniebox Calendar PDF here](https://drive.google.com/file/d/1NKlertLP0nIKOsHrcqu5pxe6NZU3SfS9/view?usp=sharing)
-
----
-
-<a href="https://www.buymeacoffee.com/MiczFlor" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg"></a>
-<!--a href="https://www.paypal.com" target="_blank"><img src="https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/pp_fc_hl.svg" width="auto" height="30px"></a-->
-
-If you like your Phoniebox, consider to [buy me a coffee](https://www.buymeacoffee.com/MiczFlor)
-or donate via [PayPal](https://www.paypal.com) to micz.flor@web.de using the *friends* option. 
-
----
-
-<a href="https://youtu.be/7GI0VdPehQI" target="_blank"><img src="docs/img/iFun-YouTube.jpg" alt="Prototype of the RFID jukebox" width="800" height="450" border="1" /></a>
-
-*See the Phoniebox code in action, watch this video and read the blog post from [iphone-ticker.de](https://www.iphone-ticker.de/wochenend-projekt-kontaktlose-musikbox-fuer-kinder-123063/)*
-
-**We love Tech** published a video screencast on *how to build your Phoniebox* (in German), you can find all the steps and see the final product here:
-
-|  |  |   |
-| --- | --- | --- |
-| <a href="https://youtu.be/spHDGSxckmw" target="_blank"><img src="https://i.ytimg.com/vi/spHDGSxckmw/hqdefault.jpg"><br>Installation und Hardware</a> | <a href="https://youtu.be/9ZSKFoWr9WY" target="_blank"><img src="https://i.ytimg.com/vi/9ZSKFoWr9WY/hqdefault.jpg"><br>Web App and Audio / Spotify</a> | <a href="https://youtu.be/YucQuwUD7XE" target="_blank"><img src="https://i.ytimg.com/vi/YucQuwUD7XE/hqdefault.jpg"><br>The finished Phoniebox in action</a> |
-
-A new video screencast about 
-
-**What makes this Phoniebox easy to install and use:**
-
-* Runs on all Raspberry Pi models (1, 2 and 3) and [Raspberry Zero](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/15). (jump to the [install instructions](#install))
-* Just plug and play using USB, no soldering iron needed.
-* Once the Phoniebox is up and running, add music from any computer on your home network.
-* Register new RFID cards easily without having to connect to the RPi.
-* Play single or multiple files, podcasts or web streams.
-* Volume control is also done with RFID cards or key fobs.
-* Connect to your Phoniebox via your wifi network or run the Phoniebox like an access point and connect directly without a router.
-* **Bonus:** control the Phoniebox from your phone or computer via a web app.
-
-![The web app allows you to change the volume level, list and play audio files and folders, stop the player and shut down the RPi gracefully.](docs/img/web-app-iphone-screens.jpg "The web app allows you to change the volume level, list and play audio files and folders, stop the player and shut down the RPi gracefully.")
-
-The **web app** runs on any device and is mobile optimised. It provides:
-
-* An audio player to pause, resume, shuffle, loop, stop and skip to previous and next track.
-* Sub folder support: manage your collection in sub folders. Phoniebox has two play buttons: only this folder and eeeeverything in this folder.
-* Manage files and folders via the web app.
-* Register new RFID cards, manage Phoniebox settings, display system info and edit the wifi connection.
-* Covers displayed in the web app (files called `cover.jpg`).
-
-## Phoniebox Gallery
-
-|  |  |   |   |   |   |
-| --- | --- | --- | --- | --- | --- |
-| ![Caption](docs/img/gallery/Steph-20171215_h90-01.jpg "Caption") | ![Caption](docs/img/gallery/Elsa-20171210_h90-01.jpg "Caption") | ![Caption](docs/img/gallery/Geliras-20171228-Jukebox-01-h90.jpg "Caption") | ![Caption](docs/img/gallery/UlliH-20171210_h90-01.jpg "Caption") | ![Caption](docs/img/gallery/KingKahn-20180101-Jukebox-01-h90.jpg "Caption") | ![Caption](docs/img/gallery/hailogugo-20171222-h90-01.jpg "Caption") | 
-
-**See more innovation, upcycling and creativity in the [Phoniebox Gallery](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/GALLERY) or visit and share the project's homepage at [phoniebox.de](http://phoniebox.de/). There is also an [english Phoniebox page](http://phoniebox.de/index.php?l=en).**
-
-## <a name="install"></a>Installation
-
-* Installation instructions for Raspbian (https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/INSTALL-stretch).
-* You can also use the [headless installation over ssh](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/INSTALL-stretch#ssh-install) straight from a fresh SD card.
-* For a quick install procedure, take a look at the [bash one line install script for stretch and buster](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/INSTALL-stretch#one-line-install-command). This should get you started quickly.
-* If you choose the step by step installation, you need to walk through the configuration steps for [Stretch](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/CONFIGURE-stretch).
-* Once everything has been installed and configured, [read the manual](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL) to change settings, register RFID cards, add audio.
-
-Adding push buttons to control volume, skipping tracks, pause, play: read the [GPIO buttons installation guide](docs/GPIO-BUTTONS.md).
-
-### Components
-
-Special hardware is now organised in the folder [`components`](https://github.com/MiczFlor/RPi-Jukebox-RFID/tree/master/components). If you have new hardware attached to your Phoniebox, please add to this library! It currently contains soundcards, displays, GPIO controls, RFID reader, smarthome integration.
-
-## Manual
+### Manual
 
 In the [Manual](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL) you will learn:
 
 * [How to connect to the Phoniebox from any computer to add and edit audio files.](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#connect)
-* [How to register new RFID cards, assign them a *human readable* shortcut and add audio files for each card.](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#registercards)
+* [How to register new RFID cards, assign them a *human readable* shortcut and add audio files for each card.](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#registercardswebapp)
 * [How to add webradio stations and other streams to the playout files](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#webstreams) - [and even mix web based and local files.](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#mixwebstreams)
 * [Adding Podcasts the your Phoniebox](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#podcasts)
 * [How to control the Phoniebox through the web app.](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#webapp)
 * [How to assign cards specific tasks such as changing the volume level or shutting down the Phoniebox.](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#cardcontrol)
 
-## Contributing improvements
+### Troubleshooting
 
-Read the [CONTRIBUTING.md](CONTRIBUTING.md) file for [more infos on how to contribute code](CONTRIBUTING.md).
-
-## Reporting bugs
-
-To make maintenance easier for everyone, please run the following script 
-and post the results when reporting a bug.
-(Note: the results contain some personal information like IP or SSID.
-You might want to erase some of it before sharing with the bug report.)
-~~~
-/home/pi/RPi-Jukebox-RFID/scripts/helperscripts/Analytics_AfterInstallScript.sh 
-~~~
-Just copy this line and paste it into your terminal on the pi.
-
-If you find something that doesn't work. And you tried and tried again, but it still doesn't work, please report your issue in the ["issues" section](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues). Make sure to include information about the system and hardware you are using, like: 
-
-*Raspberry ZERO, OS Jessie, Card reader lists as (insert here) when running scripts/RegisterDevice.py, installed Phoniebox version 0.9.3 (or: using latest master branch).*
-
-## Troubleshooting
-
-There is a growing section of [troubleshooting](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#faq) including:
+There is a growing section of [troubleshooting](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/Troubleshooting-FAQ) including:
 
 * I want to improve the onboard audio quality
 * I am moving, how do I get the Phoniebox into my new WiFi network?
@@ -235,6 +141,125 @@ There is a growing section of [troubleshooting](https://github.com/MiczFlor/RPi-
 * Script daemon is closing down unexpectedly.
 * Everything seems to work, but I hear nothing when swiping a card.
 * I would like to use two cards / IDs to do the same thing.
+
+## Hardware aka Shopping List
+
+Here is a list of equipment needed. You can find a lot second hand online (save money and the planet). The links below lead to Amazon, not at all because I want to support them, but because their PartnerNet program helps to support the Phoniebox maintenance (a little bit...).
+
+> [!NOTE]
+> Depending on individual projects, the hardware requirements vary.
+
+### Raspberry Pi
+
+* [Raspberry Pi 4 Modell B](https://amzn.to/2Yuei04)
+* [Raspberry Pi 3 Model B](https://amzn.to/3fqp8ef)
+* [Raspberry Pi Zero WH](https://amzn.to/3fkfKc5)
+
+You might be surprised how easy and affordable you can get an RPi second hand. Think about the planet before you buy a new one.
+
+### RFID Reader and cards / fobs
+
+* RFID Card Reader (USB): [Neuftech USB RFID Reader ID](https://amzn.to/2RrqScm) using 125 kHz - make sure to buy compatible cards, RFID stickers or key fobs working with the same frequency as the reader.
+  * RFID cards: [125 KHz EM4100](https://amzn.to/37pjy9q) make sure the frequency matches the RFID card reader!  
+  * RFID fobs / key rings: [EM4100 RFID-Transponder-Schlüsselring, 125 KHz](https://amzn.to/3hsuvLO) make sure the frequency matches the RFID card reader!
+* RFID Kit RC522: [RC522 Reader, Chip, Card for Raspberry Pi 13.56MHz](https://amzn.to/2C7YZCZ)
+  * RFID sticker / tags: [MIFARE RFID NFC Tags](https://amzn.to/30GfLDg) untested by me personally, but reported to work with work with RC522 and PN532 card readers.  
+
+### Speakers / amps
+
+* [USB Stereo Speaker Set (6 Watt, 3,5mm jack, USB-powered) black](http://amzn.to/2kXrard) | This USB powered speaker set sounds good for its size, is good value for money and keeps this RPi project clean and without the need of a soldering iron :)
+* [USB A Male to Female Extenstion Cable with Switch On/Off](http://amzn.to/2hHrvkG) | I placed this USB extension between the USB power adapter and the Phoniebox. This will allow you to switch the Phoniebox on and off easily.
+* [USB 2.0 Hub 4-port bus powered USB Adapter](http://amzn.to/2kXeErv) | Depending on your setup, you will need none, one or two of these. If you are using the external USB powered speakers, you need one to make sure the speakers get enough power. If you want to use the additional USB soundcard and have an older RPi, you might need a second one to make sure you can connect enough devices with the RPi.
+
+### Arcade Buttons
+
+* [USB Interface for Arcade buttons](https://amzn.to/3nRAtIS) if you insist on not soldering hardware.
+* Arcade Buttons / Sensors (one of these might suit you)
+  * [Arcade Buttons / Schalter in various colours](https://amzn.to/2QMxe9r) if you want buttons for the GPIO control.
+  * [Arcade Buttons wit LED and custom icons](https://amzn.to/2MWQ6hq) as used by [@splitti](https://splittscheid.de/selfmade-phoniebox/#3C).
+  * [Set: Arcade Buttons / Tasten / Schalter](https://amzn.to/2T81JTZ) GPIO Extension Board Starter Kit including cables and breadboard.
+  * [Touch Sensor / Kapazitive Touch Tasten](https://amzn.to/2Vc4ntx) these are not buttons to press but to touch as GPIO controls.
+
+### Special hardware
+
+These are links to additional items, which will add an individual flavour to your Phoniebox setup. Consult the issue threads to see if your idea has been realised already.
+
+* [Ground Loop Isolator / Entstörfilter Audio](https://amzn.to/2Kseo0L) this seems to [get rid off crackles in the audio out (a typical RPi problem)](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/341)
+* [Mechanical audio switch](https://amzn.to/35oOSCS) if you want to connect differen audio devices, this is the easiest way (in connection with the *Ground Loop Isolator* you will get good results)
+* [Rotary Encoder / Drehregler / Dial](https://amzn.to/2J34guF) for volume control. Read here for more information on how to [integrate the rotary dial](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/267)
+* [HiFiBerry DAC+ Soundcard](https://amzn.to/2J36cU9) Read here for more information on how to [HifiBerry Soundcard integration](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/HiFiBerry-Soundcard-Details)
+* [HDMI zu HDMI + Optisches SPDIF mit 3,5-mm-Stereo-HDMI Audio-Extractor | HDMI zu SPDIF Konverter](https://amzn.to/2N8KP8C) If you plan to use video, this might be the better solution than a USB soundcard or the hifiberry. If takes up some space, but will work with the HDMI audio out and split the signal to deliver audio through 3.5mm jack.
+
+### Components
+
+Special hardware is now organised in the folder [`components`](components/). If you have new hardware attached to your Phoniebox, please add to this library! It currently contains soundcards, displays, GPIO controls, RFID reader, smarthome integration.
+
+## Support Phoniebox
+<!-- markdownlint-disable MD033 -->
+<!-- markdownlint-disable MD045 -->
+
+<a href="https://www.buymeacoffee.com/MiczFlor" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg"></a>
+
+If you like your Phoniebox, consider to [buy me a coffee](https://www.buymeacoffee.com/MiczFlor)
+or donate via [PayPal](https://www.paypal.com) to <micz.flor@web.de> using the *friends* option.
+
+## Media
+
+### Phoniebox Gallery
+
+Visit the [Phoniebox Gallery](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/GALLERY)
+
+### Videos and Screenshots
+
+<a href="https://youtu.be/7GI0VdPehQI" target="_blank"><img src="https://raw.githubusercontent.com/wiki/MiczFlor/RPi-Jukebox-RFID/img/iFun-YouTube.jpg" alt="Prototype of the RFID jukebox" width="800" height="450" border="1" /></a>
+
+See the Phoniebox code in action, watch this video and read the blog post from [iphone-ticker.de](https://www.iphone-ticker.de/wochenend-projekt-kontaktlose-musikbox-fuer-kinder-123063/)
+
+**We love Tech** published a video screencast on *how to build your Phoniebox* (in German), you can find all the steps and see the final product here:
+
+| Installation und Hardware | Web App and Audio / Spotify | The finished Phoniebox in action |
+| --- | --- | --- |
+| [![Installation und Hardware](https://i.ytimg.com/vi/spHDGSxckmw/hqdefault.jpg)](https://youtu.be/spHDGSxckmw) | [![Web App and Audio / Spotify](https://i.ytimg.com/vi/9ZSKFoWr9WY/hqdefault.jpg)](https://youtu.be/9ZSKFoWr9WY) | [![The finished Phoniebox in action](https://i.ytimg.com/vi/YucQuwUD7XE/hqdefault.jpg)](https://youtu.be/YucQuwUD7XE) |
+
+A new video screencast about
+
+<!-- markdownlint-restore -->
+
+**What makes this Phoniebox easy to install and use:**
+
+* Runs on all Raspberry Pi models (1, 2, 3 and 4) and [Raspberry Zero](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/15).
+* Just plug and play using USB, no soldering iron needed.
+* Once the Phoniebox is up and running, add music from any computer on your home network.
+* Register new RFID cards easily without having to connect to the RPi.
+* Play single or multiple files, podcasts or web streams.
+* Volume control is also done with RFID cards or key fobs.
+* Connect to your Phoniebox via your wifi network or run the Phoniebox like an access point and connect directly without a router.
+* **Bonus:** control the Phoniebox from your phone or computer via a web app.
+
+![The web app allows you to change the volume level, list and play audio files and folders, stop the player and shut down the RPi gracefully.](https://raw.githubusercontent.com/wiki/MiczFlor/RPi-Jukebox-RFID/img/web-app-iphone-screens.jpg "The web app allows you to change the volume level, list and play audio files and folders, stop the player and shut down the RPi gracefully.")
+
+The **web app** runs on any device and is mobile optimised. It provides:
+
+* An audio player to pause, resume, shuffle, loop, stop and skip to previous and next track.
+* Sub folder support: manage your collection in sub folders. Phoniebox has two play buttons: only this folder and eeeeverything in this folder.
+* Manage files and folders via the web app.
+* Register new RFID cards, manage Phoniebox settings, display system info and edit the wifi connection.
+* Covers displayed in the web app (files called `cover.jpg`).
+
+## Sustainability
+
+You might be surprised how easy and affordable you can get a RaspberryPi or an "appropriate" housing for your Phoniebox **second hand**. Think about the planet before you buy a new one.
+Creating a Phoniebox may be sustainable for the following reasons:
+
+* You **buy things second hand** or **do upcycling on unused objects** and reduce newly produced products
+* You built your Phoniebox yourself, so **maintaining and repairing is not a problem** (Additionally **a great community helps** you)
+* Since the Phoniebox uses Linux as a base system it's **very unlikely that you run out of system and security updates** - so it can run and run and run...
+* **RFID cards or tags can be reused - no need to buy new plastic elements** for changing the music or story linked to a card
+* **Build it together with your kids** to show them that building things on their own is possible and in cooperation with others makes life easier and fun at the same time
+
+## Contributing improvements
+
+Read the [CONTRIBUTING.md](CONTRIBUTING.md) file for [more infos on how to contribute code](CONTRIBUTING.md).
 
 ## Acknowledgments
 
@@ -253,56 +278,3 @@ I also want to link to two proprietary and commercial projects, because they wer
 
 * [tonies® - das neue Audiosystem für mehr Hör-Spiel-Spaß im Kinderzimmer. (German)](https://tonies.de/) You buy a plastic figure which then triggers the audiofile - which is served over the web.
 * [Hörbert - a MP3 player controlled by buttons](https://hoerbert.com) In Germany this has already become a *classic*. They also started selling a DIY kit.
-
----
-
-<a href="https://www.buymeacoffee.com/MiczFlor" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg"></a>
-
-If you like your Phoniebox, consider to [buy me a coffee](https://www.buymeacoffee.com/MiczFlor)
-
----
-
-## Shopping list
-
-Here is a list of equipment needed. You can find a lot second hand online (save money and the planet). The links below lead to amazon, not at all because I want to support them, but because their PartnerNet program helps to support the Phoniebox maintenance (a little bit...). **Note: depending on individual projects, the hardware requirements vary.**
-
-### Raspberry Pi
-
-* [Raspberry Pi 4 Modell B](https://amzn.to/2Yuei04)
-* [Raspberry Pi 3 Model B](https://amzn.to/3fqp8ef)
-* [Raspberry Pi Zero WH](https://amzn.to/3fkfKc5)
-* Note: You might be surprised how easy and affordable you can get an RPi second hand. Think about the planet before you buy a new one.
-
-### RFID Reader and cards / fobs
-
-* RFID Card Reader (USB): [Neuftech USB RFID Reader ID](https://amzn.to/2RrqScm) using 125 kHz - make sure to buy compatible cards, RFID stickers or key fobs working with the same frequency as the reader. **Important notice:** the hardware of the reader that I had linked here for a long times seems to have changed and suddenly created problems with the Phoniebox installation. The reader listed now has worked and was recommended by two Phoniebox makers (2018 Oct 4). I can not guarantee that this will not change and invite you to give [RFID Reader feedback in this thread](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/231).
-    * RFID cards: [125 KHz EM4100](https://amzn.to/37pjy9q) make sure the frequency matches the RFID card reader !!!  
-    * RFID fobs / key rings: [EM4100 RFID-Transponder-Schlüsselring, 125 KHz](https://amzn.to/3hsuvLO) make sure the frequency matches the RFID card reader !!!  
-
-* RFID Kit RC522: [RC522 Reader, Chip, Card for Raspberry Pi 13.56MHz] (https://amzn.to/2C7YZCZ)
-    * RFID sticker / tags: [MIFARE RFID NFC Tags](https://amzn.to/30GfLDg) untested by me personally, but reported to work with work with RC522 and PN532 card readers.  
-    
-### Speakers / amps
-
-* [USB Stereo Speaker Set (6 Watt, 3,5mm jack, USB-powered) black](http://amzn.to/2kXrard) | This USB powered speaker set sounds good for its size, is good value for money and keeps this RPi project clean and without the need of a soldering iron :)
-* [USB A Male to Female Extenstion Cable with Switch On/Off](http://amzn.to/2hHrvkG) | I placed this USB extension between the USB power adapter and the Phoniebox. This will allow you to switch the Phoniebox on and off easily.
-* [USB 2.0 Hub 4-port bus powered USB Adapter](http://amzn.to/2kXeErv) | Depending on your setup, you will need none, one or two of these. If you are using the external USB powered speakers, you need one to make sure the speakers get enough power. If you want to use the additional USB soundcard and have an older RPi, you might need a second one to make sure you can connect enough devices with the RPi.
-
-### Arcade Buttons
-
-* [USB Interface for Arcade buttons](https://amzn.to/3nRAtIS) if you insist on not soldering hardware. (23rd Nov 2020: GPIO control script not yet part of the repo)
-* Arcade Buttons / Sensors (one of these might suit you)
-    * [Arcade Buttons / Schalter in various colours](https://amzn.to/2QMxe9r) if you want buttons for the GPIO control.
-    * [Arcade Buttons wit LED and custom icons](https://amzn.to/2MWQ6hq) as used by [@splitti](https://splittscheid.de/selfmade-phoniebox/#3C).
-    * [Set: Arcade Buttons / Tasten / Schalter ](https://amzn.to/2T81JTZ) GPIO Extension Board Starter Kit including cables and breadboard.
-    * [Touch Sensor / Kapazitive Touch Tasten ](https://amzn.to/2Vc4ntx) these are not buttons to press but to touch as GPIO controls.
-
-### Special hardware
-
-These are links to additional items, which will add an individual flavour to your Phoniebox setup. Consult the issue threads to see if your idea has been realised already. 
-
-* [Ground Loop Isolator / Entstörfilter Audio](https://amzn.to/2Kseo0L) this seems to [get rid off crackles in the audio out (a typical RPi problem)](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/341) 
-* [Mechanical audio switch](https://amzn.to/35oOSCS) if you want to connect differen audio devices, this is the easiest way (in connection with the *Ground Loop Isolator* you will get good results)
-* [Rotary Encoder / Drehregler / Dial](https://amzn.to/2J34guF) for volume control. Read here for more information on how to [integrate the rotary dial](https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/267) 
-* [HiFiBerry DAC+ Soundcard](https://amzn.to/2J36cU9) Read here for more information on how to [HifiBerry Soundcard integration](https://github.com/MiczFlor/RPi-Jukebox-RFID/wiki/MANUAL#hifiberry-dac-soundcard-details)
-* [HDMI zu HDMI + Optisches SPDIF mit 3,5-mm-Stereo-HDMI Audio-Extractor | HDMI zu SPDIF Konverter](https://amzn.to/2N8KP8C) If you plan to use video, this might be the better solution than a USB soundcard or the hifiberry. If takes up some space, but will work with the HDMI audio out and split the signal to deliver audio through 3.5mm jack.
